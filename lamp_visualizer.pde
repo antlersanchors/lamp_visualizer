@@ -1,6 +1,10 @@
+// TIME STUFF
 long currentTime;
 long previousTime;
 int elapsedTime;
+int minutes;
+int seconds;
+int hundredths;
 
 // VISUAL FORMATTING STUFF
 int left_margin;
@@ -15,10 +19,11 @@ int field_size;
 boolean sunBathing; // is the lamp in solar panel mode or not?
 boolean personPresent; 
 
-int lightLevel;
-int kwLevel;
-int timeCollected;
-int moneyGenerated;
+float lightLevel;
+float kwFactor;
+float kwLevel;
+String timeCollected;
+float moneyGenerated;
 
 
 void setup() {
@@ -38,19 +43,39 @@ void setup() {
 	currentTime = millis();
 	previousTime = currentTime;
 	elapsedTime = int(currentTime - elapsedTime);
+	timeCollected = "hai";
+
+	// Initialize all the things
+	lightLevel = 400;
+	kwFactor = 0.065;
+	kwLevel = 0;
+	moneyGenerated = 0;
 }
 
 void draw() {
 	background(235, 230, 230);
 
+	// timer();
 	checkStatus(); // check the solar panel mode status
 	//checkPersonality(); // check the personality setting
-
 	updateValues(); // create new "data"
-
 	module_1(); // display our "data"
 	module_2();
 	module_3();	
+
+}
+
+void timer(){
+	currentTime = millis(); // update the current time, then run code
+
+	seconds = int(currentTime / 1000);
+    minutes = seconds / 60;
+    seconds = seconds % 60;
+    hundredths = int(currentTime / 10 % 100);
+
+    // timeCollected) = ;
+	
+	previousTime = currentTime; // let time catch up
 }
 
 void checkStatus(){
@@ -62,12 +87,16 @@ void checkStatus(){
 }
 
 void updateValues(){
-	personPresent = false;
 
-	lightLevel = 0;
-	kwLevel = 0;
-	timeCollected = 0;
-	moneyGenerated = 0;
+	float lightChange = random(-2,2);
+	
+	if (currentTime - previousTime > 300){
+
+		lightLevel = lightLevel + lightChange;
+		constrain(lightLevel, 10, 850);
+		kwLevel = lightLevel * kwFactor;
+		moneyGenerated = 0;
+	}
 
 }
 
@@ -78,7 +107,7 @@ void module_1(){
 		{"Person Present", str(personPresent)},
 		{"Light Level", str(lightLevel)},
 		{"kW Generation", str(kwLevel)},
-		{"Time Collected", str(timeCollected)},
+		{"Time Collected", timeCollected},
 		{"Money Generated", str(moneyGenerated)}
 	};
 
