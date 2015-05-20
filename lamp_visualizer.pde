@@ -55,7 +55,7 @@ void setup() {
 void draw() {
 	background(235, 230, 230);
 
-	// timer();
+	timer();
 	checkStatus(); // check the solar panel mode status
 	//checkPersonality(); // check the personality setting
 	updateValues(); // create new "data"
@@ -73,9 +73,8 @@ void timer(){
     seconds = seconds % 60;
     hundredths = int(currentTime / 10 % 100);
 
-    // timeCollected) = ;
+    timeCollected = nf(minutes, 2, 0) + " : " + nf(seconds, 2, 0) + " : " + nf(hundredths, 2, 0);
 	
-	previousTime = currentTime; // let time catch up
 }
 
 void checkStatus(){
@@ -88,14 +87,18 @@ void checkStatus(){
 
 void updateValues(){
 
-	float lightChange = random(-2,2);
+	float lightChange = random(-10,10);
 	
 	if (currentTime - previousTime > 300){
 
 		lightLevel = lightLevel + lightChange;
 		constrain(lightLevel, 10, 850);
+		nf(lightLevel, 0, 2);
 		kwLevel = lightLevel * kwFactor;
+		nf(kwLevel, 0, 1);
 		moneyGenerated = 0;
+
+		previousTime = currentTime; // let time catch up
 	}
 
 }
@@ -105,7 +108,6 @@ void module_1(){
 	String[][] data_1 = {
 		{"Light Level", str(lightLevel)}, // labels and fields, row by row
 		{"Person Present", str(personPresent)},
-		{"Light Level", str(lightLevel)},
 		{"kW Generation", str(kwLevel)},
 		{"Time Collected", timeCollected},
 		{"Money Generated", str(moneyGenerated)}
@@ -121,6 +123,12 @@ void module_1(){
 			text(data_1[j][i], (left_margin + gutter*i), (top_margin + leading*j));
 		}
 	}
+
+	fill(220);
+	rect(left_margin, 350, 300, 20);
+	int barVal = int(map(lightLevel, 10, 850, 0, 300));
+	fill(85);
+	rect(left_margin, 350, barVal, 20);
 
 }
 
