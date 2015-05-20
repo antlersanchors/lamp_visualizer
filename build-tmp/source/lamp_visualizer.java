@@ -16,14 +16,28 @@ public class lamp_visualizer extends PApplet {
 
 boolean sunBathing; // is the lamp in solar panel mode or not?
 
-int margin;
+int left_margin;
+int top_margin;
+int gutter;
+int leading;
+
 int label_size;
 int field_size;
+
+int lightLevel;
+int kwLevel;
+int timeCollected;
+int moneyGenerated;
+
 
 public void setup() {
 	size(1200, 800);
 
-	margin = 20;
+	left_margin = 20;
+	top_margin = 50;
+	gutter = 300;
+	leading = 50;
+
 	label_size = 36;
 	field_size = 36;
 
@@ -36,20 +50,26 @@ public void draw() {
 	//checkStatus(); // check the solar panel mode status
 	//checkPersonality(); // check the personality setting
 
+	// updateValues(); // create new "data"
+
 	module_1(); // display our "data"
 	module_2();
 	module_3();	
 }
 
+public void updateValues(){
+
+}
+
 public void module_1(){
 
-	int lightLevel = 0;
-	int kwLevel = 0;
-	int timeCollected = 0;
-	int moneyGenerated = 0;
+	lightLevel = 0;
+	kwLevel = 0;
+	timeCollected = 0;
+	moneyGenerated = 0;
 
 	String[][] data_1 = {
-		{"Light Level", str(lightLevel)},
+		{"Light Level", str(lightLevel)}, // labels and fields, row by row
 		{"kW Generation", str(kwLevel)},
 		{"Time Collected", str(timeCollected)},
 		{"Money Generated", str(moneyGenerated)}
@@ -59,12 +79,10 @@ public void module_1(){
 	noStroke();
 	rect(0, 0, (width * 0.6f), (height * 0.5f));
 
-	for (int i = 0; i < 2; i++){
+	for (int i = 0; i < 2; i++){ 	// let's draw the table!
 		for (int j=0; j < data_1.length; j++) {
 			textSize(32);
-			text(data_1[j][i], (50 + 300*i), (50 + 50*j));
-
-
+			text(data_1[j][i], (left_margin + gutter*i), (top_margin + leading*j));
 		}
 	}
 
