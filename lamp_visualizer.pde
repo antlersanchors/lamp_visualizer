@@ -27,12 +27,14 @@ void draw() {
 
 void module_1(){
 
-	int lightLevel = 0;
-	int kwLevel = 0;
-	int timeCollected = 0;
-	int moneyGenerated = 0;
+	int lightLevel = 250;
+	int kwLevel = 60;
+	int timeCollected = 100;
+	int moneyGenerated = 40;
 
-	String[][] data_1 = {
+	String[] data_1 = new String[0][0];
+	
+	labels_1 = {
 		{"Light Level", str(lightLevel)},
 		{"kW Generation", str(kwLevel)},
 		{"Time Collected", str(timeCollected)},
@@ -43,11 +45,11 @@ void module_1(){
 	noStroke();
 	rect(0, 0, (width * 0.6), (height * 0.5));
 
-	if (int i=0; i < data_1.length; i++){
-		if (int j=0; j < data_1.length; j++) {
+	for (int i=0; i < 2; i++){
+		for (int j=0; j < data_1.length; j++) {
 			textSize(32);
-			text(, 50, 50);
-
+			// String displayText = data_1[j][i];
+			text("hello world", 0, (10 + 10*j);
 
 		}
 	}
