@@ -33,10 +33,10 @@ void module_1(){
 	int moneyGenerated = 0;
 
 	String[][] data_1 = {
-		{"Light Level", lightLevel},
-		{"kW Generation", kwLevel},
-		{"Time Collected", timeCollected},
-		{"Money Generated", moneyGenerated}
+		{"Light Level", str(lightLevel)},
+		{"kW Generation", str(kwLevel)},
+		{"Time Collected", str(timeCollected)},
+		{"Money Generated", str(moneyGenerated)}
 	};
 
 	fill(255, 20, 20, 80);
@@ -44,7 +44,7 @@ void module_1(){
 	rect(0, 0, (width * 0.6), (height * 0.5));
 
 	textSize(32);
-	text("Kw Generated", x, y);
+	text("Kw Generated", 50, 50);
 
 }
 
