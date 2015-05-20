@@ -32,27 +32,20 @@ void module_1(){
 	int timeCollected = 100;
 	int moneyGenerated = 40;
 
-	String[] data_1 = new String[0][0];
-	
-	labels_1 = {
-		{"Light Level", str(lightLevel)},
-		{"kW Generation", str(kwLevel)},
-		{"Time Collected", str(timeCollected)},
-		{"Money Generated", str(moneyGenerated)}
-	};
+	String[][] data_1 = new String[0][0];
+
+
 
 	fill(255, 20, 20, 80);
 	noStroke();
 	rect(0, 0, (width * 0.6), (height * 0.5));
 
-	for (int i=0; i < 2; i++){
-		for (int j=0; j < data_1.length; j++) {
-			textSize(32);
-			// String displayText = data_1[j][i];
-			text("hello world", 0, (10 + 10*j);
-
-		}
-	}
+	textSize(32);
+	fill(5);
+	text("Light Level", 0, (10 + 0));
+	text("kW Generation", 0, (10 + 20));
+	text("Time Collected", 0, (10 + 40));
+	text("Money Generated", 0, (10 + 60));
 
 }
 
