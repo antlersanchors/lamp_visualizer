@@ -1,5 +1,8 @@
-boolean sunBathing; // is the lamp in solar panel mode or not?
+long currentTime;
+long previousTime;
+int elapsedTime;
 
+// VISUAL FORMATTING STUFF
 int left_margin;
 int top_margin;
 int gutter;
@@ -7,6 +10,10 @@ int leading;
 
 int label_size;
 int field_size;
+
+// DATA STUFF
+boolean sunBathing; // is the lamp in solar panel mode or not?
+boolean personPresent; 
 
 int lightLevel;
 int kwLevel;
@@ -26,34 +33,50 @@ void setup() {
 	field_size = 36;
 
 	sunBathing = false;
+	personPresent = false;
+
+	currentTime = millis();
+	previousTime = currentTime;
+	elapsedTime = int(currentTime - elapsedTime);
 }
 
 void draw() {
 	background(235, 230, 230);
 
-	//checkStatus(); // check the solar panel mode status
+	checkStatus(); // check the solar panel mode status
 	//checkPersonality(); // check the personality setting
 
-	// updateValues(); // create new "data"
+	updateValues(); // create new "data"
 
 	module_1(); // display our "data"
 	module_2();
 	module_3();	
 }
 
-void updateValues(){
-
+void checkStatus(){
+	if (keyPressed){
+		if (key == 's'){
+			sunBathing = !sunBathing;
+		}
+	}
 }
 
-void module_1(){
+void updateValues(){
+	personPresent = false;
 
 	lightLevel = 0;
 	kwLevel = 0;
 	timeCollected = 0;
 	moneyGenerated = 0;
 
+}
+
+void module_1(){
+
 	String[][] data_1 = {
 		{"Light Level", str(lightLevel)}, // labels and fields, row by row
+		{"Person Present", str(personPresent)},
+		{"Light Level", str(lightLevel)},
 		{"kW Generation", str(kwLevel)},
 		{"Time Collected", str(timeCollected)},
 		{"Money Generated", str(moneyGenerated)}
