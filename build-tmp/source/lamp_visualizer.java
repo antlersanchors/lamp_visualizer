@@ -43,25 +43,24 @@ public void draw() {
 
 public void module_1(){
 
-	int lightLevel = 250;
-	int kwLevel = 60;
-	int timeCollected = 100;
-	int moneyGenerated = 40;
+	int lightLevel = 0;
+	int kwLevel = 0;
+	int timeCollected = 0;
+	int moneyGenerated = 0;
 
-	String[][] data_1 = new String[0][0];
-
-
+	String[][] data_1 = {
+		{"Light Level", str(lightLevel)},
+		{"kW Generation", str(kwLevel)},
+		{"Time Collected", str(timeCollected)},
+		{"Money Generated", str(moneyGenerated)}
+	};
 
 	fill(255, 20, 20, 80);
 	noStroke();
 	rect(0, 0, (width * 0.6f), (height * 0.5f));
 
 	textSize(32);
-	fill(5);
-	text("Light Level", 0, (10 + 0));
-	text("kW Generation", 0, (10 + 20));
-	text("Time Collected", 0, (10 + 40));
-	text("Money Generated", 0, (10 + 60));
+	text("Kw Generated", 50, 50);
 
 }
 
