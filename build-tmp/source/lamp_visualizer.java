@@ -59,8 +59,14 @@ public void module_1(){
 	noStroke();
 	rect(0, 0, (width * 0.6f), (height * 0.5f));
 
-	textSize(32);
-	text("Kw Generated", 50, 50);
+	for (int i = 0; i < 2; i++){
+		for (int j=0; j < data_1.length; j++) {
+			textSize(32);
+			text(data_1[j][i], (50 + 300*i), (50 + 50*j));
+
+
+		}
+	}
 
 }
 
