@@ -52,6 +52,9 @@ int earnGraphWidth;
 int earnGraphHeight;
 int[] earnRateVals;
 
+// LINE GRAPH STUFF
+LineGraph myGraph;
+
 
 public void setup() {
 	size(1200, 800);
@@ -86,6 +89,8 @@ public void setup() {
 	for (int i = 0; i < earnRateVals.length; i++) {
     	earnRateVals[i] = 0;
 	}
+
+	myGraph = new LineGraph(600, 500, 300, 200, "Hai World!");
 
 	ostrich_32 = loadFont("OstrichSans-Medium-32.vlw");
 	proximaNova_32 = loadFont("ProximaNova-Regular-32.vlw");
@@ -271,7 +276,60 @@ public void module_3(){
 			text(data_3[j][i], (left_margin + gutter*i + (width * 0.6f)), (top_margin + leading*j));
 		}
 	}
+	myGraph.display();
+}
+class LineGraph {
+	int x;
+	int y;
+	int w;
+	int h;
+	String title;
+	int titleLeading;
 
+	int[] graphVals;
+	int updateModulo;
+
+	LineGraph(int tempX, int tempY, int tempW, int tempH, String tempT){
+		x = tempX;
+		y = tempY;
+		w = tempW;
+		h = tempH;
+		title = tempT;
+		titleLeading = leading; // separation between title and graph
+		updateModulo = 50; // how fast the graph moves
+
+		graphVals = new int[w];
+		for (int i = 0; i < graphVals.length; i++) {
+	    	graphVals[i] = 0;
+		}
+	}
+
+	public void display() {
+		textFont(proximaNovaSC_32, label_size);
+		text(title, x, y);
+
+		fill(238);
+		rect(x, (y + titleLeading), w, h);
+
+		for (int i = 0; i < graphVals.length-1; i++) {
+			stroke(80);
+			strokeWeight(1);
+			pushMatrix();
+			translate(x, (y + titleLeading));
+			line(i,graphVals[i],i+1,graphVals[i+1]);
+			popMatrix();
+		}
+			  
+		if(millis() % updateModulo == 0){
+			// Slide everything down in the array
+			for (int i = 0; i < graphVals.length-1; i++) {
+			graphVals[i] = graphVals[i+1]; 
+			}
+			// Add a new random value
+			graphVals[graphVals.length-1] = PApplet.parseInt(random(0,h));
+		}
+
+	}
 }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "lamp_visualizer" };

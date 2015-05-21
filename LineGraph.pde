@@ -4,6 +4,10 @@ class LineGraph {
 	int w;
 	int h;
 	String title;
+	int titleLeading;
+
+	int[] graphVals;
+	int updateModulo;
 
 	LineGraph(int tempX, int tempY, int tempW, int tempH, String tempT){
 		x = tempX;
@@ -11,31 +15,38 @@ class LineGraph {
 		w = tempW;
 		h = tempH;
 		title = tempT;
+		titleLeading = leading; // separation between title and graph
+		updateModulo = 50; // how fast the graph moves
+
+		graphVals = new int[w];
+		for (int i = 0; i < graphVals.length; i++) {
+	    	graphVals[i] = 0;
+		}
 	}
 
-	void update() {
+	void display() {
 		textFont(proximaNovaSC_32, label_size);
-		text(title, left_margin, 0 + height * 0.5 + 75);
+		text(title, x, y);
 
 		fill(238);
-		rect(left_margin, (0 + height * 0.5 + 100), earnGraphWidth, earnGraphHeight);
+		rect(x, (y + titleLeading), w, h);
 
-		for (int i = 0; i < earnRateVals.length-1; i++) {
+		for (int i = 0; i < graphVals.length-1; i++) {
 			stroke(80);
 			strokeWeight(1);
 			pushMatrix();
-			translate(left_margin, 0 + height * 0.5 + 100);
-			line(i,earnRateVals[i],i+1,earnRateVals[i+1]);
+			translate(x, (y + titleLeading));
+			line(i,graphVals[i],i+1,graphVals[i+1]);
 			popMatrix();
 		}
 			  
-		if(millis() % 50 == 0){
+		if(millis() % updateModulo == 0){
 			// Slide everything down in the array
-			for (int i = 0; i < earnRateVals.length-1; i++) {
-			earnRateVals[i] = earnRateVals[i+1]; 
+			for (int i = 0; i < graphVals.length-1; i++) {
+			graphVals[i] = graphVals[i+1]; 
 			}
 			// Add a new random value
-			earnRateVals[earnRateVals.length-1] = int(random(0,earnGraphHeight));
+			graphVals[graphVals.length-1] = int(random(0,h));
 		}
 
 	}

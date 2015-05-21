@@ -36,6 +36,9 @@ int earnGraphWidth;
 int earnGraphHeight;
 int[] earnRateVals;
 
+// LINE GRAPH STUFF
+LineGraph myGraph;
+
 
 void setup() {
 	size(1200, 800);
@@ -70,6 +73,8 @@ void setup() {
 	for (int i = 0; i < earnRateVals.length; i++) {
     	earnRateVals[i] = 0;
 	}
+
+	myGraph = new LineGraph(600, 500, 300, 200, "Hai World!");
 
 	ostrich_32 = loadFont("OstrichSans-Medium-32.vlw");
 	proximaNova_32 = loadFont("ProximaNova-Regular-32.vlw");
@@ -255,5 +260,5 @@ void module_3(){
 			text(data_3[j][i], (left_margin + gutter*i + (width * 0.6)), (top_margin + leading*j));
 		}
 	}
-
+	myGraph.display();
 }
