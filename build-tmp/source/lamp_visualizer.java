@@ -247,9 +247,20 @@ public void module_3(){
 		{"Things I'm Saving For", ""}, // labels and fields, row by row
 		{"Solar Array", " 92%"},
 		{"High Efficiency Bulb", "47%"},
-		{"Stocks I'm Investing In", ""}, // labels and fields, row by row
+		{"", ""},
+
+		{"Stocks I'm Investing In", ""}, 
 		{"LumberWorld", " blah foo bar"},
-		{"CIID Inc.", " foo blah bar"}
+		{"CIID Inc.", " foo blah bar"},
+		{"", ""},
+
+		{"How's My Stock Doing?", ""}, 
+		{"lampBot Inc.", " $15.02"},
+		{"", ""},
+		
+		{"Bots That Are My Friends", ""},
+		{"augmentedToaster2014", ""},
+		{"xxxINTERNET_FRIDGExxx", ""}
 		
 	};
 
