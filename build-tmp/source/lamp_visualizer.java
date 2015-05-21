@@ -316,7 +316,9 @@ class LineGraph {
 			line(i,graphVals[i],i+1,graphVals[i+1]);
 			popMatrix();
 		}
-			  
+	}
+
+	public void update(){
 		if(millis() % updateModulo == 0){
 			// Slide everything down in the array
 			for (int i = 0; i < graphVals.length-1; i++) {
@@ -325,7 +327,6 @@ class LineGraph {
 			// Add a new random value
 			graphVals[graphVals.length-1] = PApplet.parseInt(random(0,h));
 		}
-
 	}
 }
   static public void main(String[] passedArgs) {
