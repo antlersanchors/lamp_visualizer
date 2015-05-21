@@ -32,14 +32,13 @@ String timeCollected;
 float moneyGenerated;
 int earnRate;
 
-int earnGraphWidth;
-int earnGraphHeight;
-int[] earnRateVals;
+int defaultGraphWidth;
+int defaultLineGraphHeight;
+int defaultBarGraphHeight;
 
 // GRAPH STUFF
 LineGraph earningsGraph;
 BarGraph_Horizontal lightGraph;
-
 
 void setup() {
 	size(1200, 800);
@@ -62,25 +61,23 @@ void setup() {
 	startTimer = 0;
 	timeCollected = "";
 
-	// Initialize all the things
+	// initialize all the things
 	lightLevel = 400;
 	kwFactor = 0.065;
 	kwLevel = 0;
 	moneyGenerated = 0;
 
-	earnGraphWidth = 300;
-	earnGraphHeight = 200;
-	earnRateVals = new int[earnGraphWidth];
-	for (int i = 0; i < earnRateVals.length; i++) {
-    	earnRateVals[i] = 0;
-	}
-
-	earningsGraph = new LineGraph(left_margin, int(0 + height * 0.5 + 100), 300, 200, "Billions Earned");
-	lightGraph = new BarGraph_Horizontal(left_margin, 325, 300, 20);
+	defaultGraphWidth = 300;
+	defaultLineGraphHeight = 200;
+	defaultBarGraphHeight = 20;
 
 	ostrich_32 = loadFont("OstrichSans-Medium-32.vlw");
 	proximaNova_32 = loadFont("ProximaNova-Regular-32.vlw");
 	proximaNovaSC_32 = loadFont("ProximaNovaS-Semibold-32.vlw");
+
+	// initialize graphs
+	earningsGraph = new LineGraph(left_margin, int(0 + height * 0.5 + 100), defaultGraphWidth, defaultLineGraphHeight, "Billions Earned");
+	lightGraph = new BarGraph_Horizontal(left_margin, 325, defaultGraphWidth, defaultBarGraphHeight);
 }
 
 void draw() {
