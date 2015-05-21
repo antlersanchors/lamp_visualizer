@@ -207,6 +207,7 @@ public void module_2(){
 	rect(0, (0 + height * 0.5f), (width * 0.6f), (height * 0.5f));
 
 	earningsGraph.display();
+	earningsGraph.update();
 	
 }
 
@@ -238,13 +239,6 @@ public void module_3(){
 
 	tableRender(PApplet.parseInt(width * 0.6f), top_margin, data_3);
 
-	// for (int i = 0; i < 2; i++){ 	// let's draw the table!
-	// 	for (int j=0; j < data_3.length; j++) {
-	// 		fill(80, 80, 90);
-	// 		textFont(ostrich_32, label_size);
-	// 		text(data_3[j][i], (left_margin + gutter*i + (width * 0.6)), (top_margin + leading*j));
-	// 	}
-	// }
 }
 
 public void tableRender(int tempX, int tempY, String[][] tempText){
@@ -256,7 +250,10 @@ public void tableRender(int tempX, int tempY, String[][] tempText){
 		for (int j=0; j < theText.length; j++) {
 			fill(80, 80, 90);
 			textFont(ostrich_32, label_size);
-			text(theText[j][i], (x + left_margin + gutter*i), (y + leading*j));
+			pushMatrix();
+			translate(x, y);
+			text(theText[j][i], (left_margin + gutter*i), (leading*j));
+			popMatrix();
 		}
 	}
 
