@@ -53,7 +53,7 @@ int earnGraphHeight;
 int[] earnRateVals;
 
 // LINE GRAPH STUFF
-LineGraph myGraph;
+LineGraph earningsGraph;
 
 
 public void setup() {
@@ -90,7 +90,7 @@ public void setup() {
     	earnRateVals[i] = 0;
 	}
 
-	myGraph = new LineGraph(600, 500, 300, 200, "Hai World!");
+	earningsGraph = new LineGraph(left_margin, PApplet.parseInt(0 + height * 0.5f + 100), 300, 200, "Billions Earned");
 
 	ostrich_32 = loadFont("OstrichSans-Medium-32.vlw");
 	proximaNova_32 = loadFont("ProximaNova-Regular-32.vlw");
@@ -218,29 +218,8 @@ public void module_2(){
 	noStroke();
 	rect(0, (0 + height * 0.5f), (width * 0.6f), (height * 0.5f));
 
-	textFont(proximaNovaSC_32, label_size);
-	text("billions earned", left_margin, 0 + height * 0.5f + 75);
-
-	fill(238);
-	rect(left_margin, (0 + height * 0.5f + 100), earnGraphWidth, earnGraphHeight);
-
-	for (int i = 0; i < earnRateVals.length-1; i++) {
-		stroke(80);
-		strokeWeight(1);
-		pushMatrix();
-		translate(left_margin, 0 + height * 0.5f + 100);
-		line(i,earnRateVals[i],i+1,earnRateVals[i+1]);
-		popMatrix();
-	}
-		  
-	if(millis() % 50 == 0){
-		// Slide everything down in the array
-		for (int i = 0; i < earnRateVals.length-1; i++) {
-		earnRateVals[i] = earnRateVals[i+1]; 
-		}
-		// Add a new random value
-		earnRateVals[earnRateVals.length-1] = PApplet.parseInt(random(0,earnGraphHeight));
-	}
+	earningsGraph.display();
+	
 }
 
 public void module_3(){
@@ -276,8 +255,8 @@ public void module_3(){
 			text(data_3[j][i], (left_margin + gutter*i + (width * 0.6f)), (top_margin + leading*j));
 		}
 	}
-	myGraph.display();
 }
+// for to display beautiful fake data
 class LineGraph {
 	int x;
 	int y;

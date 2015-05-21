@@ -1,3 +1,4 @@
+// for to display beautiful fake data
 class LineGraph {
 	int x;
 	int y;
