@@ -150,14 +150,14 @@ void module_1(){
 
 		fill(80, 80, 90);
 		textFont(proximaNovaSC_32, label_size);
-		text("solar collection: active", left_margin, 10);
+		text("solar collection: active", left_margin, top_margin);
 
 	} else {
 		fill(255, 20, 20, 10);
 		rect(0, 0, (width * 0.6), (height * 0.5));
 		fill(80, 80, 90);
 		textFont(proximaNovaSC_32, label_size);
-		text("solar collection: inactive", left_margin, 10);
+		text("solar collection: inactive", left_margin, top_margin);
 	}
 
 
@@ -173,15 +173,18 @@ void module_1(){
 		for (int j=0; j < data_1.length; j++) {
 			fill(80, 80, 90);
 			textFont(ostrich_32, label_size);
+			pushMatrix();
+			translate(0, 50);
 			text(data_1[j][i], (left_margin + gutter*i), (top_margin + leading*j));
+			popMatrix();
 		}
 	}
 
 	fill(220);
-	rect(left_margin, 350, 300, 20);
+	rect(left_margin, 325, 300, 20);
 	int barVal = int(map(lightLevel, 10, 850, 0, 300));
 	fill(85);
-	rect(left_margin, 350, barVal, 20);
+	rect(left_margin, 325, barVal, 20);
 
 }
 
@@ -226,6 +229,9 @@ void module_3(){
 		{"Things I'm Saving For", ""}, // labels and fields, row by row
 		{"Solar Array", " 92%"},
 		{"High Efficiency Bulb", "47%"},
+		{"Stocks I'm Investing In", ""}, // labels and fields, row by row
+		{"LumberWorld", " blah foo bar"},
+		{"CIID Inc.", " foo blah bar"}
 		
 	};
 
