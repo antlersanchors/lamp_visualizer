@@ -52,8 +52,9 @@ int earnGraphWidth;
 int earnGraphHeight;
 int[] earnRateVals;
 
-// LINE GRAPH STUFF
+// GRAPH STUFF
 LineGraph earningsGraph;
+BarGraph_Horizontal lightGraph;
 
 
 public void setup() {
@@ -91,6 +92,7 @@ public void setup() {
 	}
 
 	earningsGraph = new LineGraph(left_margin, PApplet.parseInt(0 + height * 0.5f + 100), 300, 200, "Billions Earned");
+	lightGraph = new BarGraph_Horizontal(left_margin, 325, 300, 20);
 
 	ostrich_32 = loadFont("OstrichSans-Medium-32.vlw");
 	proximaNova_32 = loadFont("ProximaNova-Regular-32.vlw");
@@ -102,7 +104,7 @@ public void draw() {
 
 	currentTime = millis(); // update the current time, then run code
 	timer();
-	checkStatus(); // check the solar panel mode status
+	//checkStatus(); // check the solar panel mode status
 	//checkPersonality(); // check the personality setting
 	updateValues(); // create new "data"
 	module_1(); // display our "data"
@@ -123,10 +125,6 @@ public void timer(){
     hundredths = PApplet.parseInt(totalTimeCollected / 10 % 100);
 
     timeCollected = nf(minutes, 2, 0) + " : " + nf(seconds, 2, 0) + " : " + nf(hundredths, 2, 0);
-	
-}
-
-public void checkStatus(){
 	
 }
 
@@ -200,16 +198,9 @@ public void module_1(){
 			popMatrix();
 		}
 	}
-
-	pushMatrix();
-	translate(left_margin, 325);
-	fill(220);
-	rect(0, 0, 300, 20);
-	int barVal = PApplet.parseInt(map(lightLevel, 10, 850, 0, 300));
-
-	fill(85);
-	rect(0, 0, barVal, 20);
-	popMatrix();
+	
+	int lightVal = PApplet.parseInt(map(lightLevel, 10, 850, 0, 300));
+	lightGraph.display(lightVal);
 
 }
 
@@ -254,6 +245,36 @@ public void module_3(){
 			textFont(ostrich_32, label_size);
 			text(data_3[j][i], (left_margin + gutter*i + (width * 0.6f)), (top_margin + leading*j));
 		}
+	}
+}
+// for to display beautiful fake data
+class BarGraph_Horizontal {
+	int x;
+	int y;
+	int w;
+	int h;
+
+	int v;
+
+	BarGraph_Horizontal(int tempX, int tempY, int tempW, int tempH){
+		x = tempX;
+		y = tempY;
+		w = tempW;
+		h = tempH;
+
+		v = 0;
+
+	}
+
+	public void display(int tempV) {
+		v = tempV;
+
+		fill(220);
+		rect(x, y, w, h);
+
+		fill(85);
+		rect(x, y, v, h);
+
 	}
 }
 // for to display beautiful fake data

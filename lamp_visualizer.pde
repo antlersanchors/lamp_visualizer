@@ -36,8 +36,9 @@ int earnGraphWidth;
 int earnGraphHeight;
 int[] earnRateVals;
 
-// LINE GRAPH STUFF
+// GRAPH STUFF
 LineGraph earningsGraph;
+BarGraph_Horizontal lightGraph;
 
 
 void setup() {
@@ -75,6 +76,7 @@ void setup() {
 	}
 
 	earningsGraph = new LineGraph(left_margin, int(0 + height * 0.5 + 100), 300, 200, "Billions Earned");
+	lightGraph = new BarGraph_Horizontal(left_margin, 325, 300, 20);
 
 	ostrich_32 = loadFont("OstrichSans-Medium-32.vlw");
 	proximaNova_32 = loadFont("ProximaNova-Regular-32.vlw");
@@ -86,7 +88,7 @@ void draw() {
 
 	currentTime = millis(); // update the current time, then run code
 	timer();
-	checkStatus(); // check the solar panel mode status
+	//checkStatus(); // check the solar panel mode status
 	//checkPersonality(); // check the personality setting
 	updateValues(); // create new "data"
 	module_1(); // display our "data"
@@ -107,10 +109,6 @@ void timer(){
     hundredths = int(totalTimeCollected / 10 % 100);
 
     timeCollected = nf(minutes, 2, 0) + " : " + nf(seconds, 2, 0) + " : " + nf(hundredths, 2, 0);
-	
-}
-
-void checkStatus(){
 	
 }
 
@@ -184,16 +182,9 @@ void module_1(){
 			popMatrix();
 		}
 	}
-
-	pushMatrix();
-	translate(left_margin, 325);
-	fill(220);
-	rect(0, 0, 300, 20);
-	int barVal = int(map(lightLevel, 10, 850, 0, 300));
-
-	fill(85);
-	rect(0, 0, barVal, 20);
-	popMatrix();
+	
+	int lightVal = int(map(lightLevel, 10, 850, 0, 300));
+	lightGraph.display(lightVal);
 
 }
 
