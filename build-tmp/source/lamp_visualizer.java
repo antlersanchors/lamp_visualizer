@@ -216,13 +216,12 @@ public void module_2(){
 	textFont(proximaNovaSC_32, label_size);
 	text("billions earned", left_margin, 0 + height * 0.5f + 75);
 
-	noFill();
-	stroke(200);
+	fill(238);
 	rect(left_margin, (0 + height * 0.5f + 100), earnGraphWidth, earnGraphHeight);
 
 	for (int i = 0; i < earnRateVals.length-1; i++) {
-		stroke(0);
-		strokeWeight(2);
+		stroke(80);
+		strokeWeight(1);
 		pushMatrix();
 		translate(left_margin, 0 + height * 0.5f + 100);
 		line(i,earnRateVals[i],i+1,earnRateVals[i+1]);
