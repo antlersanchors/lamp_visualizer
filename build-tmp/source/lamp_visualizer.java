@@ -236,13 +236,30 @@ public void module_3(){
 		
 	};
 
+	tableRender(PApplet.parseInt(width * 0.6f), top_margin, data_3);
+
+	// for (int i = 0; i < 2; i++){ 	// let's draw the table!
+	// 	for (int j=0; j < data_3.length; j++) {
+	// 		fill(80, 80, 90);
+	// 		textFont(ostrich_32, label_size);
+	// 		text(data_3[j][i], (left_margin + gutter*i + (width * 0.6)), (top_margin + leading*j));
+	// 	}
+	// }
+}
+
+public void tableRender(int tempX, int tempY, String[][] tempText){
+	int x = tempX;
+	int y = tempY;
+	String[][] theText = tempText;
+
 	for (int i = 0; i < 2; i++){ 	// let's draw the table!
-		for (int j=0; j < data_3.length; j++) {
+		for (int j=0; j < theText.length; j++) {
 			fill(80, 80, 90);
 			textFont(ostrich_32, label_size);
-			text(data_3[j][i], (left_margin + gutter*i + (width * 0.6f)), (top_margin + leading*j));
+			text(theText[j][i], (x + left_margin + gutter*i), (y + leading*j));
 		}
 	}
+
 }
 // for to display beautiful fake data
 class BarGraph_Horizontal {
