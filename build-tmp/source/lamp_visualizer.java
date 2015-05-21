@@ -196,11 +196,15 @@ public void module_1(){
 		}
 	}
 
+	pushMatrix();
+	translate(left_margin, 325);
 	fill(220);
-	rect(left_margin, 325, 300, 20);
+	rect(0, 0, 300, 20);
 	int barVal = PApplet.parseInt(map(lightLevel, 10, 850, 0, 300));
+
 	fill(85);
-	rect(left_margin, 325, barVal, 20);
+	rect(0, 0, barVal, 20);
+	popMatrix();
 
 }
 
@@ -209,9 +213,8 @@ public void module_2(){
 	noStroke();
 	rect(0, (0 + height * 0.5f), (width * 0.6f), (height * 0.5f));
 
-	// for (int i = 0; i < vals.length; i++) {
-	//     vals[i] = random(height);
-	// }
+	textFont(proximaNovaSC_32, label_size);
+	text("billions earned", left_margin, 0 + height * 0.5f + 75);
 
 	noFill();
 	stroke(200);
