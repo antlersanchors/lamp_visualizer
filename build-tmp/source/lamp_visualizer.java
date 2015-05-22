@@ -15,14 +15,9 @@ import java.io.IOException;
 public class lamp_visualizer extends PApplet {
 
 // TIME STUFF
+Timer timer;
 long currentTime;
 long previousTime;
-long startTimer;
-long endTimer;
-int totalTimeCollected;
-int minutes;
-int seconds;
-int hundredths;
 
 // VISUAL FORMATTING STUFF
 int left_margin;
@@ -71,11 +66,9 @@ public void setup() {
 	sunBathing = false;
 	personPresent = false;
 
+	timer = new Timer();
 	currentTime = millis();
-	previousTime = currentTime;
-	totalTimeCollected = 0;
-	startTimer = 0;
-	timeCollected = "";
+	previousTime = 0;
 
 	// initialize all the things
 	lightLevel = 400;
@@ -99,7 +92,7 @@ public void setup() {
 public void draw() {
 	background(235, 230, 230);
 	
-	timer();
+	timer.update();
 	//checkStatus(); // check the solar panel mode status
 	//checkPersonality(); // check the personality setting
 	updateValues(); // create new "data"
@@ -109,31 +102,10 @@ public void draw() {
 
 }
 
-public void timer(){
-	currentTime = millis(); // update the current time, then run code
-	if (sunBathing){
-		totalTimeCollected = PApplet.parseInt(totalTimeCollected + millis() - startTimer);
-
-	seconds = PApplet.parseInt(totalTimeCollected / 1000);
-    minutes = seconds / 60;
-    seconds = seconds % 60;
-    hundredths = PApplet.parseInt(totalTimeCollected / 10 % 100);
-
-    timeCollected = nf(minutes, 2, 0) + " : " + nf(seconds, 2, 0) + " : " + nf(hundredths, 2, 0);
-	}
-	
-}
-
 public void keyReleased() {
 	if (key == 's'){
 		sunBathing = !sunBathing;
-	}
-
-	if (sunBathing){
-		startTimer = millis();
-	} else {
-		startTimer = 0;
-
+		timer.pause();
 	}
 }
 
@@ -181,7 +153,7 @@ public void module_1(){
 		{"Light Level", str(lightLevel)}, // labels and fields, row by row
 		{"Person Present", str(personPresent)},
 		{"kW Generation", str(kwLevel)},
-		{"Time Collected", timeCollected},
+		{"Time Collected", timer.timeCollected},
 		{"Money Generated", str(moneyGenerated)}
 	};
 
@@ -343,6 +315,59 @@ class LineGraph {
 		}
 	}
 }
+class Timer {
+	long currentTime;
+
+	long startTime;
+	long totalCollectedTime;
+	long offset;
+
+	int seconds;
+	int minutes;
+	int hundredths;
+
+	String timeCollected;
+
+	boolean running;
+	boolean continued;
+
+	Timer(){
+		totalCollectedTime = 0;
+		running = false;
+		continued = false;
+
+	}
+
+	public void update(){
+		if (running){
+		totalCollectedTime = PApplet.parseInt(millis() - startTime);
+		if(continued){
+			totalCollectedTime += offset;
+		}
+	}
+
+	seconds = PApplet.parseInt(totalCollectedTime / 1000);
+	minutes = seconds / 60;
+	seconds = seconds % 60;
+	hundredths = PApplet.parseInt(totalCollectedTime / 10 % 100);
+	timeCollected = nf(minutes, 2, 0) + " : " + nf(seconds, 2, 0) + " : " + nf(hundredths, 2, 0);
+
+	}
+
+	public void pause(){
+		if (!running){
+			startTime = millis();
+			offset = totalCollectedTime;
+			continued = true;
+		} else {
+			continued = false;
+		}
+		running = !running;
+		println("running: "+running);
+	}
+
+
+} 
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "lamp_visualizer" };
     if (passedArgs != null) {

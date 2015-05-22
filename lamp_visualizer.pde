@@ -1,12 +1,7 @@
 // TIME STUFF
+Timer timer;
 long currentTime;
 long previousTime;
-long startTimer;
-long endTimer;
-int totalTimeCollected;
-int minutes;
-int seconds;
-int hundredths;
 
 // VISUAL FORMATTING STUFF
 int left_margin;
@@ -55,11 +50,9 @@ void setup() {
 	sunBathing = false;
 	personPresent = false;
 
+	timer = new Timer();
 	currentTime = millis();
-	previousTime = currentTime;
-	totalTimeCollected = 0;
-	startTimer = 0;
-	timeCollected = "";
+	previousTime = 0;
 
 	// initialize all the things
 	lightLevel = 400;
@@ -83,7 +76,7 @@ void setup() {
 void draw() {
 	background(235, 230, 230);
 	
-	timer();
+	timer.update();
 	//checkStatus(); // check the solar panel mode status
 	//checkPersonality(); // check the personality setting
 	updateValues(); // create new "data"
@@ -93,46 +86,10 @@ void draw() {
 
 }
 
-void timer(){
-	currentTime = millis(); // update the current time, then run code
-	if (sunBathing){
-		totalTimeCollected = int(totalTimeCollected + millis() - startTimer);
-
-	seconds = int(totalTimeCollected / 1000);
-    minutes = seconds / 60;
-    seconds = seconds % 60;
-    hundredths = int(totalTimeCollected / 10 % 100);
-
-    timeCollected = nf(minutes, 2, 0) + " : " + nf(seconds, 2, 0) + " : " + nf(hundredths, 2, 0);
-	}
-	
-}
-
-void timerTwo(){
-	currentTime = millis(); // update the current time, then run code
-	if (sunBathing){
-		totalTimeCollected = int(totalTimeCollected + millis() - startTimer);
-
-	seconds = int(totalTimeCollected / 1000);
-    minutes = seconds / 60;
-    seconds = seconds % 60;
-    hundredths = int(totalTimeCollected / 10 % 100);
-
-    timeCollected = nf(minutes, 2, 0) + " : " + nf(seconds, 2, 0) + " : " + nf(hundredths, 2, 0);
-	}
-	
-}
-
 void keyReleased() {
 	if (key == 's'){
 		sunBathing = !sunBathing;
-	}
-
-	if (sunBathing){
-		startTimer = millis();
-	} else {
-		startTimer = 0;
-
+		timer.pause();
 	}
 }
 
@@ -180,7 +137,7 @@ void module_1(){
 		{"Light Level", str(lightLevel)}, // labels and fields, row by row
 		{"Person Present", str(personPresent)},
 		{"kW Generation", str(kwLevel)},
-		{"Time Collected", timeCollected},
+		{"Time Collected", timer.timeCollected},
 		{"Money Generated", str(moneyGenerated)}
 	};
 
