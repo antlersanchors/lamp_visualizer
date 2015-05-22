@@ -3,7 +3,7 @@ long currentTime;
 long previousTime;
 long startTimer;
 long endTimer;
-long totalTimeCollected;
+int totalTimeCollected;
 int minutes;
 int seconds;
 int hundredths;
@@ -82,8 +82,7 @@ void setup() {
 
 void draw() {
 	background(235, 230, 230);
-
-	currentTime = millis(); // update the current time, then run code
+	
 	timer();
 	//checkStatus(); // check the solar panel mode status
 	//checkPersonality(); // check the personality setting
@@ -95,10 +94,9 @@ void draw() {
 }
 
 void timer(){
-
+	currentTime = millis(); // update the current time, then run code
 	if (sunBathing){
-		totalTimeCollected = (totalTimeCollected + (millis() - startTimer));
-	}
+		totalTimeCollected = int(totalTimeCollected + millis() - startTimer);
 
 	seconds = int(totalTimeCollected / 1000);
     minutes = seconds / 60;
@@ -106,6 +104,22 @@ void timer(){
     hundredths = int(totalTimeCollected / 10 % 100);
 
     timeCollected = nf(minutes, 2, 0) + " : " + nf(seconds, 2, 0) + " : " + nf(hundredths, 2, 0);
+	}
+	
+}
+
+void timerTwo(){
+	currentTime = millis(); // update the current time, then run code
+	if (sunBathing){
+		totalTimeCollected = int(totalTimeCollected + millis() - startTimer);
+
+	seconds = int(totalTimeCollected / 1000);
+    minutes = seconds / 60;
+    seconds = seconds % 60;
+    hundredths = int(totalTimeCollected / 10 % 100);
+
+    timeCollected = nf(minutes, 2, 0) + " : " + nf(seconds, 2, 0) + " : " + nf(hundredths, 2, 0);
+	}
 	
 }
 
@@ -117,6 +131,7 @@ void keyReleased() {
 	if (sunBathing){
 		startTimer = millis();
 	} else {
+		startTimer = 0;
 
 	}
 }

@@ -19,7 +19,7 @@ long currentTime;
 long previousTime;
 long startTimer;
 long endTimer;
-long totalTimeCollected;
+int totalTimeCollected;
 int minutes;
 int seconds;
 int hundredths;
@@ -98,8 +98,7 @@ public void setup() {
 
 public void draw() {
 	background(235, 230, 230);
-
-	currentTime = millis(); // update the current time, then run code
+	
 	timer();
 	//checkStatus(); // check the solar panel mode status
 	//checkPersonality(); // check the personality setting
@@ -111,10 +110,9 @@ public void draw() {
 }
 
 public void timer(){
-
+	currentTime = millis(); // update the current time, then run code
 	if (sunBathing){
-		totalTimeCollected = (totalTimeCollected + (millis() - startTimer));
-	}
+		totalTimeCollected = PApplet.parseInt(totalTimeCollected + millis() - startTimer);
 
 	seconds = PApplet.parseInt(totalTimeCollected / 1000);
     minutes = seconds / 60;
@@ -122,6 +120,7 @@ public void timer(){
     hundredths = PApplet.parseInt(totalTimeCollected / 10 % 100);
 
     timeCollected = nf(minutes, 2, 0) + " : " + nf(seconds, 2, 0) + " : " + nf(hundredths, 2, 0);
+	}
 	
 }
 
@@ -133,6 +132,7 @@ public void keyReleased() {
 	if (sunBathing){
 		startTimer = millis();
 	} else {
+		startTimer = 0;
 
 	}
 }
